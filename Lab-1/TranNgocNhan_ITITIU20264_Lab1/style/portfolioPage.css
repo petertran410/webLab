@@ -24,14 +24,32 @@
 }
 
 .table {
-  font-size: 20px;
-  display: flex;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-tr th:nth-child(2), tr td:nth-child(2) {
-  padding-left: 50px;
+.header_table th:nth-child(1) {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 .inner_table td {
-  padding-top: 20px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.inner_table td.table_content {
+  text-align: center;
+}
+
+.inner_table td.table_content a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.5s ease;
+}
+
+.inner_table td.table_content a:hover {
+  color: #0066cc;
 }
