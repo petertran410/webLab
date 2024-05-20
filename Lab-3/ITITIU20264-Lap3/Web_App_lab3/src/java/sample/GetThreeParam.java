@@ -12,11 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author macbook
- */
-@WebServlet(name = "GetThreeParam", urlPatterns = {"/GetThreeParam"})
+@WebServlet(name = "GetThreeParam", urlPatterns = {"GetThreeParam"})
 public class GetThreeParam extends HttpServlet {
 
     @Override
@@ -24,7 +20,7 @@ public class GetThreeParam extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<h1>Hello Tran Ngoc Nhan ITITIU20264 THis is doGetMethod for ex1</h1>");
+            out.println("<h1>Hello Tran Ngoc Nhan ITITIU20264</h1>");
         }
     }
     @Override
@@ -34,9 +30,9 @@ public class GetThreeParam extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         
-        String first = request.getParameter("first");
-        String second = request.getParameter("second");
-        String third = request.getParameter("third");
+        String email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
         
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -47,15 +43,19 @@ public class GetThreeParam extends HttpServlet {
             out.println("<body>");
             out.println("<style>");
             out.println("h1 {");        // note leading brace
-            out.println("color:blue;");
-            out.println("background-color:yellow;");
+            out.println("color:orange;");
+            out.println("background-color:blue;");
             out.println("text-align: center;");
             out.println("}");  
             out.println("</style>");
-            out.println("<h1>Reading Three Request Parameters </h1>");
-            out.println("<li>param1 :" + first + "</li>");
-            out.println("<li>param2 :" + second + "</li>");
-            out.println("<li>param3 :" + third + "</li>");
+            out.println("<h1>Thanks for joining our email list </h1>");
+            out.println("<span>Here is the information that you entered: </span>");
+            out.println("<li>Email :" + email + "</li>");
+            out.println("<li>First Name :" + firstName + "</li>");
+            out.println("<li>Last Name :" + lastName + "</li>");
+            out.println("<span>To enter another email address, click on the Back button on your browser or the Return button show below </span>");
+            out.println("<input type=\"button\" value=\"Return\" onclick=\"window.location.href='cancel'\"/>" +
+"            </div>");
             out.println("</body>");
             out.println("</html>");
             
@@ -67,6 +67,6 @@ public class GetThreeParam extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
