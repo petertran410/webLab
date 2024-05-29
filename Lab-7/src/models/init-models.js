@@ -9,10 +9,11 @@ export default function initModels(sequelize) {
   const course_program = _course_program.init(sequelize, DataTypes);
   const program = _program.init(sequelize, DataTypes);
 
-  course_program.belongsTo(course, { as: "course", foreignKey: "course_id"});
-  course.hasMany(course_program, { as: "course_programs", foreignKey: "course_id"});
-  course_program.belongsTo(program, { as: "program", foreignKey: "program_id"});
-  program.hasMany(course_program, { as: "course_programs", foreignKey: "program_id"});
+  course.hasMany(course_program, { as: "course_programs", foreignKey: "course_id" });
+
+  course_program.belongsTo(course, { as: "course", foreignKey: "course_id" });
+
+  program.belongsTo(course, { as: "course", foreignKey: "course_id" });
 
   return {
     course,

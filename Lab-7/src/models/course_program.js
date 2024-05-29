@@ -7,21 +7,18 @@ export default class course_program extends Model {
     course_id: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      references: {
-        model: 'course',
-        key: 'course_id'
-      }
+      primaryKey: true
     },
     program_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'program',
-        key: 'program_id'
-      }
+      allowNull: false
     },
     course_code: {
       type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    course_type_id: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
@@ -35,13 +32,6 @@ export default class course_program extends Model {
         using: "BTREE",
         fields: [
           { name: "course_id" },
-          { name: "program_id" },
-        ]
-      },
-      {
-        name: "FK_CourseProgram_Program",
-        using: "BTREE",
-        fields: [
           { name: "program_id" },
         ]
       },

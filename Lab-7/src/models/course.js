@@ -46,13 +46,6 @@ export default class course extends Model {
           { name: "course_id" },
         ]
       },
-      {
-        name: "FK_Course_CourseLevel",
-        using: "BTREE",
-        fields: [
-          { name: "course_level_id" },
-        ]
-      },
     ]
   });
   }
