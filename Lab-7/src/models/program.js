@@ -4,7 +4,7 @@ const { Model, Sequelize } = _sequelize;
 export default class program extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    course_id: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
@@ -23,11 +23,19 @@ export default class program extends Model {
     },
     major_id: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'major',
+        key: 'id'
+      }
     },
     program_type_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'program_type',
+        key: 'id'
+      }
     },
     valid_from: {
       type: DataTypes.STRING(255),
@@ -43,7 +51,21 @@ export default class program extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "course_id" },
+          { name: "id" },
+        ]
+      },
+      {
+        name: "FK_program_major",
+        using: "BTREE",
+        fields: [
+          { name: "major_id" },
+        ]
+      },
+      {
+        name: "fk_program_program_type",
+        using: "BTREE",
+        fields: [
+          { name: "program_type_id" },
         ]
       },
     ]

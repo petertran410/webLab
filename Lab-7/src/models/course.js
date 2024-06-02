@@ -4,7 +4,7 @@ const { Model, Sequelize } = _sequelize;
 export default class course extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    course_id: {
+    id: {
       type: DataTypes.STRING(255),
       allowNull: false,
       primaryKey: true
@@ -43,7 +43,14 @@ export default class course extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "course_id" },
+          { name: "id" },
+        ]
+      },
+      {
+        name: "FK_Course_CourseLevel",
+        using: "BTREE",
+        fields: [
+          { name: "course_level_id" },
         ]
       },
     ]

@@ -15,18 +15,23 @@ export const getCourseProgram = async (req, res) => {
 };
 
 export const createCourseProgram = async (req, res) => {
+  const { id, program_id, course_code, course_type_id } = req.body;
+
+  if (!id || !program_id || !course_code || !course_type_id) {
+    return responseData(res, "Missing fields", null, 501);
+  }
   try {
-    let newData = {
-      course_id,
+    const newData = {
+      id,
       program_id,
       course_code,
       course_type_id,
     };
 
-    let data = await model.course_program.create(newData);
+    const data = await model.course_program.create(newData);
     responseData(res, "Thành công", data, 200);
-  } catch {
-    responseData(res, "Lỗi ...", "", 500);
+  } catch (error) {
+    responseData(res, "Lỗi ...", error.message, 500);
   }
 };
 

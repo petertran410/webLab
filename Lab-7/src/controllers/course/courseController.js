@@ -14,10 +14,71 @@ export const getCourse = async (req, res) => {
   }
 };
 
+// export const createCourse = async (req, res) => {
+//   const { id } = req.params;
+//   const {
+//     course_level_id,
+//     name,
+//     name_vn,
+//     credit_theory,
+//     credit_lab,
+//     description,
+//   } = req.body;
+//   // try {
+//   let newData = {
+//     id,
+//     course_level_id,
+//     name,
+//     name_vn,
+//     credit_theory,
+//     credit_lab,
+//     description,
+//   };
+
+//   let data = await model.course.create(newData);
+
+//   responseData(res, "Thành công", data, 200);
+//   // } catch (error) {
+//   //   responseData(res, "Lỗi ...", "", 500);
+//   // }
+// };
+
 export const createCourse = async (req, res) => {
+  const {
+    id,
+    course_level_id,
+    name,
+    name_vn,
+    credit_theory,
+    credit_lab,
+    description,
+  } = req.body;
+
+  if (
+    !id ||
+    !course_level_id ||
+    !name ||
+    !name_vn ||
+    !credit_theory ||
+    !credit_lab ||
+    !description
+  ) {
+    return responseData(res, "Missing fields", null, 501);
+  }
+
+  let checkId = await model.course.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (id) {
+    responseData(res, "Id đã tồn tại", "", 400);
+  }
+
   try {
-    let newData = {
-      course_id,
+    const newData = {
+      id,
       course_level_id,
       name,
       name_vn,
@@ -25,19 +86,60 @@ export const createCourse = async (req, res) => {
       credit_lab,
       description,
     };
-
-    let data = await model.course.create(newData);
-
+    const data = await model.course.create(newData);
     responseData(res, "Thành công", data, 200);
   } catch (error) {
-    responseData(res, "Lỗi ...", "", 500);
+    responseData(res, "Lỗi ...", error.message, 500);
   }
 };
+
+// export const updataCourse = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     let newData = {
+//       course_level_id,
+//       name,
+//       name_vn,
+//       credit_theory,
+//       credit_lab,
+//       description,
+//     };
+
+//     let data = await model.course.upload(newData.dataValues, {
+//       where: {
+//         id: id,
+//       },
+//     });
+//     responseData(res, "Thành công", data, 200);
+//   } catch {
+//     responseData(res, "Lỗi ...", "", 500);
+//   }
+// };
 
 export const updataCourse = async (req, res) => {
   try {
     const { course_id } = req.params;
-    let newData = {
+    const {
+      course_level_id,
+      name,
+      name_vn,
+      credit_theory,
+      credit_lab,
+      description,
+    } = req.body;
+
+    if (
+      !course_level_id ||
+      !name ||
+      !name_vn ||
+      !credit_theory ||
+      !credit_lab ||
+      !description
+    ) {
+      return responseData(res, "Missing required fields", null, 400);
+    }
+
+    const newData = {
       course_level_id,
       name,
       name_vn,
@@ -46,14 +148,15 @@ export const updataCourse = async (req, res) => {
       description,
     };
 
-    let data = await model.course.upload(newData.dataValues, {
+    let data = await model.course.update(newData, {
       where: {
-        course_id: course_id,
+        id: course_id,
       },
     });
+
     responseData(res, "Thành công", data, 200);
-  } catch {
-    responseData(res, "Lỗi ...", "", 500);
+  } catch (error) {
+    responseData(res, "Lỗi ...", error.message, 500);
   }
 };
 
@@ -63,11 +166,16 @@ export const deleteCourse = async (req, res) => {
 
     let data = await model.course.destroy({
       where: {
-        course_id,
+        id: course_id,
       },
     });
+
+    if (data === 0) {
+      return responseData(res, "Course not found", null, 404);
+    }
+
     responseData(res, "Thành công", data, 200);
-  } catch {
-    responseData(res, "Lỗi ...", "", 500);
+  } catch (error) {
+    responseData(res, "Lỗi ...", error.message, 500);
   }
 };

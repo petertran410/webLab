@@ -1,0 +1,52 @@
+body {
+  font-family: sans-serif;
+  font-size: smaller;
+  padding: 40px;
+  color: #334455;
+  width: 600px;
+}
+h1 {
+  letter-spacing: 6px;
+  font-size: 1.6em;
+  color: #aa2b00;
+  font-weight: bold;
+}
+h2 {
+  text-align: left;
+  letter-spacing: 6px;
+  font-size: 1.4em;
+  color: #aa2b00;
+  font-weight: normal;
+  width: 400px;
+}
+table {
+  width: 500px;
+  padding: 15px;
+  background-color: #cceeff;
+  font-family: sans-serif;
+}
+td {
+  padding: 15px;
+}
+a {
+  color: #0088aa;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.popupBox {
+  position: absolute;
+  left: 130px;
+}
+.popupCell {
+  background-color: #ffffff;
+}
+.popupCell:hover {
+  background-color: #f7e4e1;
+}
+.popupItem {
+  color: #444444;
+  text-decoration: none;
+  font-size: 1.2em;
+}
