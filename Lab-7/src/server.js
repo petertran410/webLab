@@ -4,6 +4,9 @@ import { rootRoute } from "./routes/rootRoutes.js";
 const app = express();
 const port = 8080;
 
+import cors from "cors";
+app.use(cors());
+
 app.use(express.json());
 
 app.use(rootRoute);

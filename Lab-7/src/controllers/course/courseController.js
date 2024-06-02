@@ -14,35 +14,6 @@ export const getCourse = async (req, res) => {
   }
 };
 
-// export const createCourse = async (req, res) => {
-//   const { id } = req.params;
-//   const {
-//     course_level_id,
-//     name,
-//     name_vn,
-//     credit_theory,
-//     credit_lab,
-//     description,
-//   } = req.body;
-//   // try {
-//   let newData = {
-//     id,
-//     course_level_id,
-//     name,
-//     name_vn,
-//     credit_theory,
-//     credit_lab,
-//     description,
-//   };
-
-//   let data = await model.course.create(newData);
-
-//   responseData(res, "Thành công", data, 200);
-//   // } catch (error) {
-//   //   responseData(res, "Lỗi ...", "", 500);
-//   // }
-// };
-
 export const createCourse = async (req, res) => {
   const {
     id,
@@ -66,14 +37,19 @@ export const createCourse = async (req, res) => {
     return responseData(res, "Missing fields", null, 501);
   }
 
-  let checkId = await model.course.findOne({
-    where: {
-      id,
-    },
-  });
+  let checkId;
+  try {
+    checkId = await model.course.findOne({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    return responseData(res, "Database error during ID check", "", 500);
+  }
 
-  if (id) {
-    responseData(res, "Id đã tồn tại", "", 400);
+  if (checkId) {
+    return responseData(res, "Id đã tồn tại", "", 400);
   }
 
   try {
@@ -87,9 +63,9 @@ export const createCourse = async (req, res) => {
       description,
     };
     const data = await model.course.create(newData);
-    responseData(res, "Thành công", data, 200);
+    return responseData(res, "Thành công", data, 200);
   } catch (error) {
-    responseData(res, "Lỗi ...", error.message, 500);
+    return responseData(res, "Lỗi ...", error.message, 500);
   }
 };
 
@@ -116,7 +92,7 @@ export const createCourse = async (req, res) => {
 //   }
 // };
 
-export const updataCourse = async (req, res) => {
+export const updateCourse = async (req, res) => {
   try {
     const { course_id } = req.params;
     const {
